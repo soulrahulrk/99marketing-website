@@ -10,6 +10,8 @@ npm run dev
 ```
 
 Open `http://127.0.0.1:4321/`.
+it is live also on the web 
+https://99marketing-website.vercel.app/
 
 ## Build
 
