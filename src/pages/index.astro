@@ -20,7 +20,9 @@ const description =
   "99 Marketing Services is a performance-led digital marketing agency in Mohali helping brands grow with SEO, paid media, CRM automation, CRO, social media, analytics, and web development.";
 const canonical = "https://www.99marketingservices.com/";
 const publishedDate = "2026-05-28";
-const leadFormEndpoint = import.meta.env.PUBLIC_GOOGLE_SHEETS_WEB_APP_URL ?? "";
+const googleSheetsEndpoint =
+  "https://script.google.com/macros/s/AKfycbz1B6Hv9C1rKdwtvPCb5qqyaynkA6Ou0AbdsN7_sdaxwjpE1nCBYYc-oLszDBVBUVmhag/exec";
+const leadFormEndpoint = import.meta.env.PUBLIC_GOOGLE_SHEETS_WEB_APP_URL ?? googleSheetsEndpoint;
 
 const schema = [
   {
