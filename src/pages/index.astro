@@ -1,0 +1,366 @@
+---
+import Icon from "@components/Icon.astro";
+import {
+  approach,
+  contact,
+  faq,
+  industries,
+  navItems,
+  packages,
+  problems,
+  results,
+  services,
+  solutions,
+} from "@data/content";
+import "@styles/global.css";
+
+const title =
+  "99 Marketing Services | Digital Marketing Agency in Mohali for SEO, PPC & CRO";
+const description =
+  "99 Marketing Services is a performance-led digital marketing agency in Mohali helping brands grow with SEO, paid media, CRM automation, CRO, social media, analytics, and web development.";
+const canonical = "https://www.99marketingservices.com/";
+const publishedDate = "2026-05-28";
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: "99 Marketing Services",
+    url: canonical,
+    image: `${canonical}assets/marketing-command-center.png`,
+    telephone: "+91-8700-979899",
+    email: contact.email,
+    slogan: "We Market. You Win",
+    description,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Phase 10",
+      addressLocality: "Mohali",
+      addressRegion: "Punjab",
+      postalCode: "160062",
+      addressCountry: "IN",
+    },
+    areaServed: ["India", "Global"],
+    priceRange: "$$",
+    sameAs: [contact.instagram, contact.linkedin, contact.facebook, contact.x],
+    serviceType: services.map((service) => service.title),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "99 Marketing Services",
+    url: canonical,
+    inLanguage: "en-IN",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  },
+];
+---
+
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#d60000" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="99 Marketing Services" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${canonical}assets/marketing-command-center.png`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${canonical}assets/marketing-command-center.png`} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header" aria-label="Main navigation">
+      <div class="container header-inner">
+        <a class="brand" href="/" aria-label="99 Marketing Services home">
+          <span class="brand-mark" aria-hidden="true">99</span>
+          <span>
+            <strong>99 Marketing</strong>
+            <span>Services</span>
+          </span>
+        </a>
+        <nav class="desktop-nav" aria-label="Primary">
+          {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+        </nav>
+        <a class="button button-primary header-cta" href={contact.calendly} target="_blank" rel="noopener noreferrer">
+          Book Free Consultation
+        </a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero section-pad">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="brand-line">We Market. You Win</p>
+            <h1>Digital marketing systems built for measurable growth</h1>
+            <p class="hero-lede">
+              We plan, build, and optimize full-funnel marketing systems that turn attention into revenue. Get SEO, paid media, CRM automation, CRO, analytics, social media, and web development aligned around one growth plan.
+            </p>
+            <div class="hero-actions" aria-label="Primary actions">
+              <a class="button button-primary" href={contact.calendly} target="_blank" rel="noopener noreferrer">
+                Book Free Consultation
+                <Icon name="arrow" />
+              </a>
+              <a class="button button-secondary" href="#services">See Services</a>
+            </div>
+            <dl class="hero-proof" aria-label="Growth proof points">
+              <div>
+                <dt>3X</dt>
+                <dd>ROAS lift</dd>
+              </div>
+              <div>
+                <dt>60%+</dt>
+                <dd>MQL growth</dd>
+              </div>
+              <div>
+                <dt>90 days</dt>
+                <dd>Launch window</dd>
+              </div>
+            </dl>
+          </div>
+          <figure class="hero-media">
+            <img
+              src="/assets/marketing-command-center.png"
+              alt="Marketing analytics dashboard with campaign, SEO, and conversion charts"
+              width="1680"
+              height="945"
+              decoding="async"
+              fetchpriority="high"
+            />
+            <figcaption>Performance reporting, campaign planning, and funnel analytics in one operating rhythm.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="service-strip" id="services" aria-labelledby="services-title">
+        <div class="container">
+          <div class="section-heading centered">
+            <h2 id="services-title">Our Bespoke Services</h2>
+            <p>Full-stack digital marketing support across acquisition, activation, retention, and conversion.</p>
+          </div>
+          <div class="services-grid">
+            {
+              services.map((service) => (
+                <a class="service-card" href={`/services/${service.slug}/`} aria-label={`Learn more about ${service.title}`}>
+                  <Icon name={service.icon} />
+                  <h3>{service.title}</h3>
+                  <p>{service.copy}</p>
+                  <span class="service-link">Learn more</span>
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <section class="problem-solution" aria-labelledby="problem-title">
+        <div class="split-panel">
+          <div class="problem-panel">
+            <div class="panel-inner">
+              <h2 id="problem-title">The Problem We Solve</h2>
+              <ul class="check-list negative">
+                {problems.map((item) => <li><Icon name="xmark" />{item}</li>)}
+              </ul>
+            </div>
+          </div>
+          <div class="solution-panel">
+            <div class="panel-inner">
+              <h2>The Solution We Deliver</h2>
+              <ul class="check-list">
+                {solutions.map((item) => <li><Icon name="check" />{item}</li>)}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-pad approach-section" id="approach" aria-labelledby="approach-title">
+        <div class="container">
+          <div class="section-heading centered">
+            <h2 id="approach-title">Our Approach</h2>
+            <p>Senior-led strategy, clear measurement, and a repeatable test-learn-scale loop.</p>
+          </div>
+          <ol class="approach-steps">
+            {
+              approach.map((step, index) => (
+                <li>
+                  <span class="step-index">{String(index + 1).padStart(2, "0")}</span>
+                  <span class="step-icon"><Icon name={step.icon} /></span>
+                  <h3>{step.title}</h3>
+                  <p>{step.copy}</p>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </section>
+
+      <section class="section-pad packages-section" id="packages" aria-labelledby="packages-title">
+        <div class="container">
+          <div class="section-heading">
+            <h2 id="packages-title">Growth Packages</h2>
+            <p>Choose the operating model that matches your stage, targets, and internal team capacity.</p>
+          </div>
+          <div class="packages-grid">
+            {
+              packages.map((pack) => (
+                <article class:list={["package-card", pack.featured && "featured"]}>
+                  <div class="package-head">
+                    <Icon name={pack.icon} />
+                    <div>
+                      <h3>{pack.title}</h3>
+                      <p>{pack.subtitle}</p>
+                    </div>
+                  </div>
+                  <p class="package-price">{pack.price}</p>
+                  <ul class="check-list compact">
+                    {pack.features.map((feature) => <li><Icon name="check" />{feature}</li>)}
+                  </ul>
+                  <a class:list={["button", pack.featured ? "button-primary" : "button-secondary"]} href={contact.calendly} target="_blank" rel="noopener noreferrer">
+                    {pack.cta}
+                  </a>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <section class="results-section" id="results" aria-labelledby="results-title">
+        <div class="container">
+          <div class="section-heading centered">
+            <h2 id="results-title">Real Results. Measurable Impact.</h2>
+            <p>Every campaign is measured against revenue, pipeline quality, acquisition efficiency, and conversion lift.</p>
+          </div>
+          <dl class="results-grid">
+            {
+              results.map((result) => (
+                <div>
+                  <dt>{result.value}</dt>
+                  <dd>{result.label}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+      </section>
+
+      <section class="industries-section" aria-labelledby="industries-title">
+        <div class="container">
+          <div class="section-heading centered">
+            <h2 id="industries-title">Trusted Across Growth-Minded Industries</h2>
+          </div>
+          <ul class="industry-list">
+            {industries.map((industry) => <li>{industry}</li>)}
+          </ul>
+        </div>
+      </section>
+
+      <section class="faq-section section-pad" aria-labelledby="faq-title">
+        <div class="container faq-grid">
+          <div class="section-heading">
+            <h2 id="faq-title">Digital Marketing FAQs</h2>
+            <p>Clear answers for buyers comparing agencies, SEO partners, and performance marketing teams.</p>
+          </div>
+          <div class="faq-list">
+            {
+              faq.map((item) => (
+                <details>
+                  <summary>{item.question}</summary>
+                  <p>{item.answer}</p>
+                </details>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-band" id="contact" aria-labelledby="contact-title">
+        <div class="container contact-grid">
+          <div>
+            <h2 id="contact-title">Let's build your growth engine.</h2>
+            <p>Book a free consultation and get a practical plan for your channels, website, tracking, and conversion funnel.</p>
+          </div>
+          <div class="contact-details" aria-label="Contact details">
+            <a href={contact.phoneHref}><Icon name="phone" />{contact.phoneDisplay}</a>
+            <a href={contact.emailHref}><Icon name="mail" />{contact.email}</a>
+            <span><Icon name="pin" />{contact.address}</span>
+          </div>
+          <a class="button button-light" href={contact.calendly} target="_blank" rel="noopener noreferrer">
+            Book Free Consultation
+            <Icon name="arrow" />
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <a class="brand brand-footer" href="/">
+            <span class="brand-mark" aria-hidden="true">99</span>
+            <span>
+              <strong>99 Marketing</strong>
+              <span>Services</span>
+            </span>
+          </a>
+          <p>Performance-led digital growth studio helping brands turn attention into measurable revenue with full-funnel systems.</p>
+          <div class="social-links" aria-label="Social links">
+            <a href={contact.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">IG</a>
+            <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
+            <a href={contact.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+            <a href={contact.x} target="_blank" rel="noopener noreferrer" aria-label="X">X</a>
+          </div>
+        </div>
+        <div>
+          <h2>Quick Links</h2>
+          <ul>
+            {navItems.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+          </ul>
+        </div>
+        <div>
+          <h2>Services</h2>
+          <ul>
+            {services.slice(0, 6).map((service) => <li><a href={`/services/${service.slug}/`}>{service.title}</a></li>)}
+          </ul>
+        </div>
+        <div>
+          <h2>Contact</h2>
+          <ul>
+            <li><a href={contact.phoneHref}>{contact.phoneDisplay}</a></li>
+            <li><a href={contact.emailHref}>{contact.email}</a></li>
+            <li>{contact.address}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <span>(c) {new Date(publishedDate).getFullYear()} 99MarketingServices.com. All rights reserved.</span>
+        <span>Privacy Policy | Terms & Conditions</span>
+      </div>
+    </footer>
+  </body>
+</html>

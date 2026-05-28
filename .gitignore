@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.astro/
+qa/
+dev-server*.log
+.DS_Store

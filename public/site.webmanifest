@@ -1,0 +1,16 @@
+{
+  "name": "99 Marketing Services",
+  "short_name": "99Marketing",
+  "description": "Performance-led digital marketing agency for SEO, paid media, CRM, CRO, social media, and web development.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#d60000",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
