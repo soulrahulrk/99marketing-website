@@ -20,6 +20,7 @@ const description =
   "99 Marketing Services is a performance-led digital marketing agency in Mohali helping brands grow with SEO, paid media, CRM automation, CRO, social media, analytics, and web development.";
 const canonical = "https://www.99marketingservices.com/";
 const publishedDate = "2026-05-28";
+const leadFormEndpoint = import.meta.env.PUBLIC_GOOGLE_SHEETS_WEB_APP_URL ?? "";
 
 const schema = [
   {
@@ -316,6 +317,53 @@ const schema = [
           </a>
         </div>
       </section>
+
+      <section class="lead-section section-pad" aria-labelledby="lead-form-title">
+        <div class="container lead-grid">
+          <div class="section-heading">
+            <h2 id="lead-form-title">Tell us what you want to grow.</h2>
+            <p>Share the essentials and we will follow up with the next practical step.</p>
+          </div>
+          <form class="lead-form" data-lead-form data-endpoint={leadFormEndpoint}>
+            <input type="hidden" name="source" value="Website Lead Form" />
+            <input type="hidden" name="page" value={canonical} />
+            <input type="hidden" name="submittedAt" data-submitted-at />
+            <div class="form-row">
+              <label>
+                Name
+                <input name="name" type="text" autocomplete="name" required />
+              </label>
+              <label>
+                Phone
+                <input name="phone" type="tel" autocomplete="tel" required />
+              </label>
+            </div>
+            <div class="form-row">
+              <label>
+                Email
+                <input name="email" type="email" autocomplete="email" required />
+              </label>
+              <label>
+                Service
+                <select name="service" required>
+                  <option value="">Select a service</option>
+                  {services.map((service) => <option value={service.title}>{service.title}</option>)}
+                </select>
+              </label>
+            </div>
+            <label>
+              Website or company
+              <input name="company" type="text" autocomplete="organization" />
+            </label>
+            <label>
+              What do you need help with?
+              <textarea name="message" rows="5" required></textarea>
+            </label>
+            <button class="button button-primary" type="submit">Send Details</button>
+            <p class="form-status" data-form-status aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
@@ -362,5 +410,47 @@ const schema = [
         <span>Privacy Policy | Terms & Conditions</span>
       </div>
     </footer>
+    <script is:inline>
+      const leadForm = document.querySelector("[data-lead-form]");
+
+      if (leadForm) {
+        const status = leadForm.querySelector("[data-form-status]");
+        const submittedAt = leadForm.querySelector("[data-submitted-at]");
+        const endpoint = leadForm.dataset.endpoint;
+
+        if (!endpoint) {
+          status.textContent = "Lead form needs a Google Sheets Web App URL before submissions can be stored.";
+        }
+
+        leadForm.addEventListener("submit", async (event) => {
+          event.preventDefault();
+
+          if (!endpoint) {
+            status.textContent = "Form setup is pending. Please call, email, or book a consultation for now.";
+            return;
+          }
+
+          const submitButton = leadForm.querySelector("button[type='submit']");
+          submittedAt.value = new Date().toISOString();
+          submitButton.disabled = true;
+          status.textContent = "Sending...";
+
+          try {
+            await fetch(endpoint, {
+              method: "POST",
+              mode: "no-cors",
+              body: new FormData(leadForm),
+            });
+
+            leadForm.reset();
+            status.textContent = "Thanks. Your details were sent successfully.";
+          } catch (error) {
+            status.textContent = "Something went wrong. Please call or email us directly.";
+          } finally {
+            submitButton.disabled = false;
+          }
+        });
+      }
+    </script>
   </body>
 </html>

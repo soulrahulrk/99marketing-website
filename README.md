@@ -21,6 +21,33 @@ npm run build
 
 The production files are generated in `dist/`.
 
+## Google Sheets Lead Form
+
+The homepage lead form submits to a Google Apps Script Web App URL stored in:
+
+```bash
+PUBLIC_GOOGLE_SHEETS_WEB_APP_URL
+```
+
+Create a Google Sheet with a tab named `Leads` and this header row:
+
+```text
+submittedAt | name | phone | email | service | company | message | source | page
+```
+
+Then open Extensions -> Apps Script in that Sheet, paste the code from `docs/google-sheets-app-script.js`, and deploy it as a Web App:
+
+- Execute as: `Me`
+- Who has access: `Anyone`
+
+Copy the deployed Web App URL and add it to `.env` locally:
+
+```bash
+PUBLIC_GOOGLE_SHEETS_WEB_APP_URL=https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec
+```
+
+Add the same environment variable in the production hosting provider before building or redeploying the site.
+
 ## SEO Foundation
 
 - One canonical home page plus static service pages under `/services/`.
